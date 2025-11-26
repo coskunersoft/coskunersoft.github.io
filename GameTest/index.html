@@ -124,14 +124,40 @@
 
       </script>
       <script>
+          let unityInstanceRef; // global scope'ta tanımla
+
+          const canvas = document.querySelector("#unity-canvas");
+          const config = {
+              dataUrl: "Build/GameTest.data",
+              frameworkUrl: "Build/GameTest.framework.js",
+              codeUrl: "Build/GameTest.wasm",
+              streamingAssetsUrl: "StreamingAssets",
+              companyName: "YourCompany",
+              productName: "GameTest",
+              productVersion: "1.0",
+          };
+
+          createUnityInstance(canvas, config, (progress) => {
+              console.log("Loading:", progress);
+          }).then((instance) => {
+              unityInstanceRef = instance; // burada instance’ı sakla
+          }).catch((message) => {
+              console.error(message);
+          });
+
+          // Unity'ye mesaj göndermek için fonksiyon
           function unityLog(msg) {
               if (unityInstanceRef) {
-                  unityInstanceRef.SendMessage("Logger", "HandleExternalLog", msg);
+                  unityInstanceRef.SendMessage("LoggerObject", "HandleExternalLog", msg);
               } else {
                   console.warn("Unity instance not ready yet");
               }
           }
+
+          // Örnek: Unity yüklenmeden önce çağırırsan uyarı alırsın
+          // unityLog("Hello from JS!");
       </script>
+
 
   </body>
 </html>
