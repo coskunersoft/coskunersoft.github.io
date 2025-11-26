@@ -125,9 +125,8 @@
       </script>
       <script>
           window.unityLog = (msg) => {
-              if (typeof unityInstance !== "undefined") {
                   unityInstance.SendMessage("LoggerObject", "HandleExternalLog", msg);
-              }
+              
           };
       </script>
 
