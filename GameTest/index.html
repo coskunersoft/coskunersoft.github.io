@@ -124,12 +124,13 @@
 
       </script>
       <script>
-          window.unityLog = (msg) => {
-              const uf = globalThis.unityFramework;
-
-                  uf.SendMessage("LoggerObject", "HandleExternalLog", msg);
-              
-          };
+          function unityLog(msg) {
+              if (unityInstanceRef) {
+                  unityInstanceRef.SendMessage("Logger", "HandleExternalLog", msg);
+              } else {
+                  console.warn("Unity instance not ready yet");
+              }
+          }
       </script>
 
   </body>
