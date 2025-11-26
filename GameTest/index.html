@@ -127,11 +127,8 @@
           window.unityLog = (msg) => {
               const uf = globalThis.unityFramework;
 
-              if (uf && uf.SendMessage) {
                   uf.SendMessage("LoggerObject", "HandleExternalLog", msg);
-              } else {
-                  console.warn("Unity runtime not ready, message:", msg);
-              }
+              
           };
       </script>
 
