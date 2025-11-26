@@ -124,7 +124,16 @@
 
       </script>
       <script>
-          let unityInstanceRef; // global scope'ta tanımla
+          let unityInstanceRef; // Unity instance'ı saklamak için
+
+          window.unityLog = function (msg) {
+              if (unityInstanceRef) {
+                  // LoggerObject Unity sahnesindeki bir GameObject olmalı ve HandleExternalLog fonksiyonunu içermeli
+                  unityInstanceRef.SendMessage("LoggerObject", "HandleExternalLog", msg);
+              } else {
+                  console.warn("Unity instance not ready yet:", msg);
+              }
+          };
 
           const canvas = document.querySelector("#unity-canvas");
           const config = {
@@ -140,23 +149,12 @@
           createUnityInstance(canvas, config, (progress) => {
               console.log("Loading:", progress);
           }).then((instance) => {
-              unityInstanceRef = instance; // burada instance’ı sakla
+              unityInstanceRef = instance;
           }).catch((message) => {
               console.error(message);
           });
-
-          // Unity'ye mesaj göndermek için fonksiyon
-          function unityLog(msg) {
-              if (unityInstanceRef) {
-                  unityInstanceRef.SendMessage("LoggerObject", "HandleExternalLog", msg);
-              } else {
-                  console.warn("Unity instance not ready yet");
-              }
-          }
-
-          // Örnek: Unity yüklenmeden önce çağırırsan uyarı alırsın
-          // unityLog("Hello from JS!");
       </script>
+
 
 
   </body>
