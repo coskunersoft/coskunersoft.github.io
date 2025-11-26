@@ -125,8 +125,12 @@
       </script>
       <script>
           window.unityLog = (msg) => {
-                  unityInstance.SendMessage("LoggerObject", "HandleExternalLog", msg);
-              
+              // Unity 6 WebGL yeni runtime kontrolü
+              if (typeof Module !== 'undefined' && Module.SendMessage) {
+                  Module.SendMessage('LoggerObject', 'HandleExternalLog', msg);
+              } else {
+                  console.warn("Unity runtime not ready:", msg);
+              }
           };
       </script>
 
