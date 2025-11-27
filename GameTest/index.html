@@ -115,11 +115,12 @@
             console.log("Kullanıcı id:", user.id);
 
             if (user.photo_url) {
-                // Profil fotoğrafı varsa göster
                 const img = document.createElement('img');
                 img.src = user.photo_url;
                 img.style.width = "100px";
                 img.style.height = "100px";
+                img.style.position = "absolute"; // veya relative
+                img.style.zIndex = "-1"; // canvas’ın altında kalır
                 document.body.appendChild(img);
             } else {
                 console.log("Kullanıcının profil fotoğrafı yok.");
