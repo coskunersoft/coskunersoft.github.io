@@ -106,28 +106,5 @@
         };
         document.body.appendChild(script);
     </script>
-    <script>
-        Telegram.WebApp.ready();
-
-        const user = Telegram.WebApp.initDataUnsafe.user;
-        if (user) {
-            console.log("Kullanıcı adı:", user.first_name);
-            console.log("Kullanıcı id:", user.id);
-
-            if (user.photo_url) {
-                const img = document.createElement('img');
-                img.id = "telegramProfileImg"; // Unity için id
-                img.src = user.photo_url;
-                img.style.width = "100px";
-                img.style.height = "100px";
-                img.style.position = "absolute";
-                img.style.zIndex = "-1"; // canvas’ın altında
-                document.body.appendChild(img);
-            } else {
-                console.log("Kullanıcının profil fotoğrafı yok.");
-            }
-        }
-    </script>
-
 </body>
 </html>
